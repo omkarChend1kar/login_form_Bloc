@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_form_bloc/src/blocs/provider.dart';
 import '../blocs/bloc.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,18 +12,19 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of(context);
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.all(20.0),
+        margin: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            emailField(),
-            SizedBox(
+            emailField(bloc),
+            const SizedBox(
               width: 100,
               height: 20,
             ),
-            passwordField(),
-            SizedBox(
+            passwordField(bloc),
+            const SizedBox(
               width: 100,
               height: 20,
             ),
@@ -33,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget emailField() {
+  Widget emailField(Bloc bloc) {
     return StreamBuilder(
         //Retrieve the stream
         stream: bloc.email,
@@ -47,23 +49,30 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: 'Email',
               hintText: 'yourId@example.com',
               // fillColor: Color.fromARGB(251, 119, 89, 89),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 255, 0, 0),
+                  width: 1,
+                ),
+              ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color.fromARGB(255, 255, 0, 0),
                   width: 1,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color.fromARGB(174, 92, 92, 92),
                   width: 2.5,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color.fromARGB(174, 92, 92, 92),
                   width: 2.5,
                 ),
@@ -73,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  Widget passwordField() {
+  Widget passwordField(Bloc bloc) {
     return StreamBuilder(
         //Retrieve the stream
         stream: bloc.password,
@@ -86,8 +95,15 @@ class _LoginScreenState extends State<LoginScreen> {
               errorText: snapshot.error?.toString(),
               labelText: 'Password',
               hintText: 'Enter password',
-              fillColor: Color.fromARGB(252, 182, 182, 182),
+              fillColor: const Color.fromARGB(252, 182, 182, 182),
               focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 255, 0, 0),
+                  width: 1,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: const BorderSide(
                   color: Color.fromARGB(255, 255, 0, 0),
@@ -96,14 +112,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color.fromARGB(174, 92, 92, 92),
                   width: 2.5,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color.fromARGB(174, 92, 92, 92),
                   width: 2.5,
                 ),
@@ -115,6 +131,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget submitButton() {
-    return ElevatedButton(onPressed: (() => {}), child: Text('Login'));
+    return ElevatedButton(onPressed: (() => {}), child: const Text('Login'));
   }
 }
