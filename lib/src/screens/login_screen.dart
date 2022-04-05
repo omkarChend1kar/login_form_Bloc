@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 100,
               height: 20,
             ),
-            submitButton()
+            submitButton(bloc),
           ],
         ),
       ),
@@ -130,7 +130,15 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  Widget submitButton() {
-    return ElevatedButton(onPressed: (() => {}), child: const Text('Login'));
+  Widget submitButton(Bloc bloc) {
+    return StreamBuilder<Object>(
+      stream: bloc.submitValid,
+      builder: (context, snapshot) {
+        return ElevatedButton(
+          onPressed: snapshot.hasData ? bloc.submit : null,
+          child: const Text('Login'),
+        );
+      },
+    );
   }
 }
